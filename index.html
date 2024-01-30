@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tinos&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100;500&family=League+Spartan&family=Raleway&display=swap" rel="stylesheet">
     <title>Kaykay's weather app</title>
 </head>
@@ -16,7 +19,7 @@
             <div class="search-item">
                 <div class="search-header"><h2>Weather.</h2></div>
                 <div class="search-location">
-                    <div><img src="./images/location.png" alt=""></div>
+                    <div><img src="./images/geo-alt-fill.svg" alt=""></div>
                     <p>Lorem ipsum dolor sit amet.</p>
                 </div>
             </div>
@@ -46,19 +49,19 @@
 
                 <div class="today-weather-status">
                     <h2>Lorem.</h2>
-                    <p><img src="" alt="">Precipitation: <span class="chance"></span></p>
-                    <p><img src="" alt="">Humidity: <span class="chance"></span></p>
-                    <p><img src="" alt="">Wind: <span class="chance"></span></p>
+                    <p><img src="./images/cloud-hail.svg" alt="">Precipitation: <span class="chance"></span></p>
+                    <p><img src="./images/moisture.svg" alt="">Humidity: <span class="chance"></span></p>
+                    <p><img src="./images/wind.svg" alt="">Wind: <span class="chance"></span></p>
                 </div>
             </div>
         </div>
 
         <div class="third-container">
             <div class="third-container-item">
-                <h3><img src="" alt="">Temperature</h3>
-                <h3><img src="" alt="">Wind</h3>
-                <h3><img src="" alt="">Precipitaion</h3>
-                <h3><img src="" alt="">Humidity</h3>
+                <h3><img src="./images/thermometer-half.svg" alt="">Temperature</h3>
+                <h3><img src="./images/wind.svg" alt="">Wind</h3>
+                <h3><img src="./images/cloud-hail.svg" alt="">Precipitaion</h3>
+                <h3><img src="./images/moisture.svg" alt="">Humidity</h3>
             </div>
 
             <div class="third-container-item date-weather-status">
@@ -136,11 +139,11 @@
             </div>
         </div>
         
-        <div class="fourth-container weekly-forecast">
-            <div class="fourth-container-item">
-                <h2><span>Weekly</span> Forecast</h2>
-            </div>
+        <div class="middle-container">
+            <h2><span>Weekly</span> Forecast</h2>
+        </div>
 
+        <div class="fourth-container weekly-forecast">
             <div class="fourth-container-item weekly-weather-cards">
                 <div class="weekly-weather-card">
                     <div class="weekly-weather-card-date">
@@ -270,5 +273,8 @@
             <p>Completed by <a href="https://github.com/kelechikizito">Kelechi Kizito Ugwu</a></p>
         </div>
     </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="./index.js"></script>
 </body>
 </html>
