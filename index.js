@@ -1,3 +1,4 @@
+// CURRENT DATE AND TIME
 function getCurrentDateTime() {
     const date = new Date();
     const dateFormatter = new Intl.DateTimeFormat('en-US', {
@@ -21,14 +22,11 @@ function updateCurrentDate() {
     let todayDate = $('.today-date');
     todayDate.text(getCurrentDateTime());
 }
-
 updateCurrentDate();
-
 setInterval(updateCurrentDate, 1000);
 
 
 // WEEKLY CARDS
-
 function getNextSevenDays() {
     const dates = [];
     const currentDate = new Date();
@@ -63,36 +61,10 @@ function getNextSevenDays() {
     
     return dates;
 }
-
-// Call the function to get the next 7 days
 const nextSevenDays = getNextSevenDays();
-console.log(nextSevenDays);
 
-const y = $('.weekly-weather-card-date').children(':last-child');
-y.each(function(index) {
-    const firstChild = $(this);
-    
-    // Change the text content based on the index or any other condition
-    if (index === 0) {
-        firstChild.text(nextSevenDays[0][1]);
-    } else if (index === 1) {
-        firstChild.text(nextSevenDays[1][1]);
-    } else if (index === 2) {
-        firstChild.text(nextSevenDays[2][1]);
-    } else if (index === 3) {
-        firstChild.text(nextSevenDays[3][1]);
-    } else if (index === 4) {
-        firstChild.text(nextSevenDays[4][1]);
-    } else if (index === 5) {
-        firstChild.text(nextSevenDays[5][1]);
-    } else if (index === 6) {
-        firstChild.text(nextSevenDays[6][1]);
-    } 
-});
-
-const w = $('.weekly-weather-card-date').children(':first-child');
-
-w.each(function(index) {
+const cardMonth = $('.weekly-weather-card-date').children(':first-child');
+cardMonth.each(function(index) {
     const firstChild = $(this);
     
     // Change the text content based on the index or any other condition
@@ -113,3 +85,79 @@ w.each(function(index) {
     } 
 });
 
+const cardDay = $('.weekly-weather-card-date').children(':last-child');
+cardDay.each(function(index) {
+    const firstChild = $(this);
+    
+    // Change the text content based on the index or any other condition
+    if (index === 0) {
+        firstChild.text(nextSevenDays[0][1]);
+    } else if (index === 1) {
+        firstChild.text(nextSevenDays[1][1]);
+    } else if (index === 2) {
+        firstChild.text(nextSevenDays[2][1]);
+    } else if (index === 3) {
+        firstChild.text(nextSevenDays[3][1]);
+    } else if (index === 4) {
+        firstChild.text(nextSevenDays[4][1]);
+    } else if (index === 5) {
+        firstChild.text(nextSevenDays[5][1]);
+    } else if (index === 6) {
+        firstChild.text(nextSevenDays[6][1]);
+    } 
+});
+
+
+// CURRENT LOCATION
+// Step 1: Get user coordinates 
+function getCoordintes() { 
+	var options = { 
+		enableHighAccuracy: true, 
+		timeout: 5000, 
+		maximumAge: 0 
+	}; 
+
+	function success(pos) { 
+		var crd = pos.coords; 
+		var lat = crd.latitude.toString(); 
+		var lng = crd.longitude.toString(); 
+		var coordinates = [lat, lng]; 
+		console.log(`Latitude: ${lat}, Longitude: ${lng}`); 
+		getCity(coordinates); 
+		return; 
+
+	} 
+
+	function error(err) { 
+		console.warn(`ERROR(${err.code}): ${err.message}`); 
+	} 
+
+	navigator.geolocation.getCurrentPosition(success, error, options); 
+} 
+
+// Step 2: Get city name 
+function getCity(coordinates) {
+    var xhr = new XMLHttpRequest();
+    var lat = coordinates[0];
+    var lng = coordinates[1];
+
+    // Paste your LocationIQ token below.
+    xhr.open('GET', "https://us1.locationiq.com/v1/reverse?key=pk.0f126d71f4406bb967167c3110d2ce35&lat=" +
+        lat + "&lon=" + lng + "&format=json", true);
+    xhr.send();
+    xhr.onreadystatechange = processRequest;
+    xhr.addEventListener("readystatechange", processRequest, false);
+
+    function processRequest(e) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var response = JSON.parse(xhr.responseText);
+            var city = response.address.state.split(' ')[0];
+            var country = response.address.country;
+            let locationInfo = $('.search-current-location');
+            locationInfo.text(`${city}, ${country}`)
+            return;
+        }
+    }
+}
+
+getCoordintes(); 

@@ -44,6 +44,10 @@ body {
     gap: 1rem;
 }
 
+.search-current-location {
+    font-weight: bolder;
+}
+
 .search-location > div {
     display: flex;
     justify-content: center;
