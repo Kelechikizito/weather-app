@@ -34,7 +34,7 @@ function getNextSevenDays() {
     const currentDate = new Date();
     
     // Iterate over the next 7 days
-    for (let i = 1; i < 8; i++) {
+    for (let i = 0; i < 7; i++) {
         const nextDate = new Date(currentDate);
         nextDate.setDate(currentDate.getDate() + i);
 
