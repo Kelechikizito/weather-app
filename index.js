@@ -26,6 +26,7 @@ updateCurrentDate();
 setInterval(updateCurrentDate, 1000);
 
 
+
 // WEEKLY CARDS
 function getNextSevenDays() {
     const dates = [];
@@ -108,6 +109,7 @@ cardDay.each(function(index) {
 });
 
 
+
 // CURRENT LOCATION
 // Step 1: Get user coordinates 
 function getCoordintes() { 
@@ -121,8 +123,29 @@ function getCoordintes() {
 		var crd = pos.coords; 
 		var lat = crd.latitude.toString(); 
 		var lng = crd.longitude.toString(); 
+        let apiKey = 'f2de816e338f0089fd3a344183af0a5b';
 		var coordinates = [lat, lng]; 
-		console.log(`Latitude: ${lat}, Longitude: ${lng}`); 
+		// console.log(`Latitude: ${lat}, Longitude: ${lng}`); 
+
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${apiKey}`)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            todayTemp = $('#todayTemp');
+            feels = $('#feels');
+            weatherStatusToday = $('.today-weather-status h2');
+            todayTemp.text(data.main.temp);
+            feels.text(data.main.feels_like);
+            weatherStatusToday.text(data.weather[0].main);
+            console.log(data.weather[0]);
+        })
+        .catch(error => {
+            alert('Check your network', error);
+            console.error('Error fetching weather', error);
+        });
+
+
 		getCity(coordinates); 
 		return; 
 
@@ -159,5 +182,7 @@ function getCity(coordinates) {
         }
     }
 }
-
 getCoordintes(); 
+
+
+// Latitude: 6.5568768, Longitude: 3.325952
