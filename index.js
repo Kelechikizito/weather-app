@@ -1,3 +1,8 @@
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+
 // CURRENT DATE AND TIME
 function getCurrentDateTime() {
     const date = new Date();
@@ -123,22 +128,35 @@ function getCoordintes() {
 		var crd = pos.coords; 
 		var lat = crd.latitude.toString(); 
 		var lng = crd.longitude.toString(); 
-        let apiKey = 'f2de816e338f0089fd3a344183af0a5b';
 		var coordinates = [lat, lng]; 
 		// console.log(`Latitude: ${lat}, Longitude: ${lng}`); 
 
+        const apiKey = 'f2de816e338f0089fd3a344183af0a5b';
+        
         fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${apiKey}`)
         .then(response => {
             return response.json();
         })
         .then(data => {
+            weatherIcon = data.weather[0].icon;
+            imageUrl =  `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`
+
             todayTemp = $('#todayTemp');
             feels = $('#feels');
             weatherStatusToday = $('.today-weather-status h2');
+            todayWeatherIcon = $('.today-weather-icon img');
+            todayWindChance = $('#todayWindChance');
+            todayHumidityChance = $('#todayHumidityChance');
+
+
             todayTemp.text(data.main.temp);
             feels.text(data.main.feels_like);
-            weatherStatusToday.text(data.weather[0].main);
-            console.log(data.weather[0]);
+            weatherStatusToday.text(capitalizeFirstLetter(data.weather[0].description));
+            todayWeatherIcon.attr('src', imageUrl);
+            todayWindChance.text(data.wind.speed);
+            todayHumidityChance.text(data.main.humidity);
+
+            console.log(data);
         })
         .catch(error => {
             alert('Check your network', error);
@@ -183,6 +201,3 @@ function getCity(coordinates) {
     }
 }
 getCoordintes(); 
-
-
-// Latitude: 6.5568768, Longitude: 3.325952

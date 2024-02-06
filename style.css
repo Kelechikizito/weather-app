@@ -119,6 +119,12 @@ button {
     gap: 2rem;
 }
 
+.today-weather-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .today-weather-status {
     display: flex;
     flex-direction: column;
