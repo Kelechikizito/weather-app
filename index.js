@@ -129,7 +129,7 @@ function getCoordintes() {
 		var lat = crd.latitude.toString(); 
 		var lng = crd.longitude.toString(); 
 		var coordinates = [lat, lng]; 
-		// console.log(`Latitude: ${lat}, Longitude: ${lng}`); 
+		console.log(`Latitude: ${lat}, Longitude: ${lng}`); 
 
         const apiKey = 'f2de816e338f0089fd3a344183af0a5b';
         
@@ -156,15 +156,36 @@ function getCoordintes() {
             todayWindChance.text(data.wind.speed);
             todayHumidityChance.text(data.main.humidity);
 
-            console.log(data);
+            // console.log(data);
         })
         .catch(error => {
-            alert('Check your network', error);
             console.error('Error fetching weather', error);
         });
 
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,wind_speed_10m&timezone=auto&forecast_days=1`)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            p = [];
+            for (let index = 1; index < 24; index+=2) {
+               p.push(data.hourly.temperature_2m[index]);
+            }
+            for (let index = 0; index < 12; index++) {
+                let dd = $('.date-weather-status-details').eq(index);
+                dd.text(`${p[index]}°`)               
+            }
+            console.log(p)
+            
+        })
+        .catch(error => {
+            console.error(error);
+        })
 
-		getCity(coordinates); 
+        
+
+		
+        getCity(coordinates); 
 		return; 
 
 	} 
