@@ -149,8 +149,8 @@ function getCoordintes() {
             todayHumidityChance = $('#todayHumidityChance');
 
 
-            todayTemp.text(data.main.temp);
-            feels.text(data.main.feels_like);
+            todayTemp.text(data.main.temp + ' °C');
+            feels.text(data.main.feels_like + ' °C');
             weatherStatusToday.text(capitalizeFirstLetter(data.weather[0].description));
             todayWeatherIcon.attr('src', imageUrl);
             todayWindChance.text(data.wind.speed);
@@ -167,15 +167,15 @@ function getCoordintes() {
             return response.json();
         })
         .then(data => {
-            p = [];
+            tempArray = [];
             for (let index = 1; index < 24; index+=2) {
-               p.push(data.hourly.temperature_2m[index]);
+               tempArray.push(data.hourly.temperature_2m[index]);
             }
             for (let index = 0; index < 12; index++) {
                 let dd = $('.date-weather-status-details').eq(index);
-                dd.text(`${p[index]}°`)               
+                dd.text(`${tempArray[index]}°`)               
             }
-            console.log(p)
+            console.log(tempArray)
             
         })
         .catch(error => {
