@@ -115,20 +115,20 @@ cardDay.each(function(index) {
 
 
 
-// CURRENT LOCATION
+// CURRENT LOCATION AND WEATHER STATS
 // Step 1: Get user coordinates 
 function getCoordintes() { 
-	var options = { 
+	let options = { 
 		enableHighAccuracy: true, 
 		timeout: 5000, 
 		maximumAge: 0 
 	}; 
 
 	function success(pos) { 
-		var crd = pos.coords; 
-		var lat = crd.latitude.toString(); 
-		var lng = crd.longitude.toString(); 
-		var coordinates = [lat, lng]; 
+		let crd = pos.coords; 
+		let lat = crd.latitude.toString(); 
+		let lng = crd.longitude.toString(); 
+		let coordinates = [lat, lng]; 
 		console.log(`Latitude: ${lat}, Longitude: ${lng}`); 
 
         const apiKey = 'f2de816e338f0089fd3a344183af0a5b';
@@ -162,20 +162,46 @@ function getCoordintes() {
             console.error('Error fetching weather', error);
         });
 
+
+
         fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,wind_speed_10m&timezone=auto&forecast_days=1`)
         .then(response => {
             return response.json();
         })
         .then(data => {
             tempArray = [];
+            humidityArray = [];
+            windSpeedArray = [];
+            precipitationArray = [];
             for (let index = 1; index < 24; index+=2) {
                tempArray.push(data.hourly.temperature_2m[index]);
+               humidityArray.push(data.hourly.relative_humidity_2m[index]);
+               windSpeedArray.push(data.hourly.wind_speed_10m[index]);
+               precipitationArray.push(data.hourly.precipitation_probability[index])
             }
             for (let index = 0; index < 12; index++) {
                 let dd = $('.date-weather-status-details').eq(index);
-                dd.text(`${tempArray[index]}°`)               
+                dd.text(`${tempArray[index]}°`);
+
+                // let g = $('.third-container-item h3:nth-child(1)');
+                // let h = $('.third-container-item h3:nth-child(2)');
+                // let i = $('.third-container-item h3:nth-child(3)');
+                // let j = $('.third-container-item h3:nth-child(4)');
+                
+                
+                // function updateState(tabId) {
+                //     dd.text(`${tabId[index]}°`);
+                // }
+
+                // g.click(updateState('tempArray'));
+                // h.click(updateState('windSpeedArray'));
+                // i.click(updateState('precipitationArray'));
+                // j.click(updateState('humidityArray'));
+                              
             }
-            console.log(tempArray)
+            console.log(humidityArray)
+            console.log(windSpeedArray)
+            console.log(precipitationArray)
             
         })
         .catch(error => {
@@ -197,28 +223,34 @@ function getCoordintes() {
 	navigator.geolocation.getCurrentPosition(success, error, options); 
 } 
 
-// Step 2: Get city name 
+// // Step 2: Get city name 
 function getCity(coordinates) {
-    var xhr = new XMLHttpRequest();
-    var lat = coordinates[0];
-    var lng = coordinates[1];
+    let xhr = new XMLHttpRequest();
+    let lat = coordinates[0];
+    let lng = coordinates[1];
+    
 
     // Paste your LocationIQ token below.
-    xhr.open('GET', "https://us1.locationiq.com/v1/reverse?key=pk.0f126d71f4406bb967167c3110d2ce35&lat=" +
-        lat + "&lon=" + lng + "&format=json", true);
+    xhr.open('GET', `https://us1.locationiq.com/v1/reverse?key=pk.0f126d71f4406bb967167c3110d2ce35&lat=${lat}&lon=${lng}&format=json`, true);
     xhr.send();
     xhr.onreadystatechange = processRequest;
     xhr.addEventListener("readystatechange", processRequest, false);
 
     function processRequest(e) {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            var response = JSON.parse(xhr.responseText);
-            var city = response.address.state.split(' ')[0];
-            var country = response.address.country;
+            let response = JSON.parse(xhr.responseText);
+            let city = response.address.state.split(' ')[0];
+            let country = response.address.country;
+            let town = response.address.town;
             let locationInfo = $('.search-current-location');
-            locationInfo.text(`${city}, ${country}`)
+            locationInfo.text(`${town || city}, ${country}`);
             return;
         }
     }
 }
 getCoordintes(); 
+
+
+
+
+const state = {tab1:false, tab2:false, tab3:false, tab4:false};

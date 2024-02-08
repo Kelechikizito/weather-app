@@ -238,6 +238,11 @@ button:active {
     transform: scale(1.1);
 }
 
+.third-container-item:nth-child(1) h3:hover {
+    cursor: pointer;
+    color: var(--light-blue-color);
+}
+
 
 /* RESPONSIVE DESIGN */
 @media (max-width:1050px) {
