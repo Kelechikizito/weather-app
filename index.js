@@ -180,28 +180,47 @@ function getCoordintes() {
                precipitationArray.push(data.hourly.precipitation_probability[index])
             }
             for (let index = 0; index < 12; index++) {
-                let dd = $('.date-weather-status-details').eq(index);
-                dd.text(`${tempArray[index]}°`);
-
-                // let g = $('.third-container-item h3:nth-child(1)');
-                // let h = $('.third-container-item h3:nth-child(2)');
-                // let i = $('.third-container-item h3:nth-child(3)');
-                // let j = $('.third-container-item h3:nth-child(4)');
-                
-                
-                // function updateState(tabId) {
-                //     dd.text(`${tabId[index]}°`);
-                // }
-
-                // g.click(updateState('tempArray'));
-                // h.click(updateState('windSpeedArray'));
-                // i.click(updateState('precipitationArray'));
-                // j.click(updateState('humidityArray'));
-                              
+                let weatherStatistics = $('.date-weather-status-details').eq(index);
+                weatherStatistics.text(`${tempArray[index]}°`);
+            
+                let state = 0;
+            
+                let tempHeader = $('.third-container-item h3:nth-child(1)');
+                let windHeader = $('.third-container-item h3:nth-child(2)');
+                let preciHeader = $('.third-container-item h3:nth-child(3)');
+                let humidityHeader = $('.third-container-item h3:nth-child(4)');
+            
+                tempHeader.click(() => {
+                    state = 0;
+                    updateText();
+                });
+                windHeader.click(() => {
+                    state = 1;
+                    updateText();
+                });
+                preciHeader.click(() => {
+                    state = 2;
+                    updateText();
+                });
+                humidityHeader.click(() => {
+                    state = 3;
+                    updateText();
+                });
+            
+                // Function to update text based on the current state
+                function updateText() {
+                    if (state == 0) {
+                        weatherStatistics.text(`${tempArray[index]}°`);
+                    } else if (state == 1) {
+                        weatherStatistics.text(`${windSpeedArray[index]} km/h`); // Example text change
+                    } else if (state == 2) {
+                        weatherStatistics.text(`${precipitationArray[index]}%`); // Example text change
+                    } else {
+                        weatherStatistics.text(`${humidityArray[index]}%`); // Example text change
+                    }
+                }
             }
-            console.log(humidityArray)
-            console.log(windSpeedArray)
-            console.log(precipitationArray)
+            
             
         })
         .catch(error => {
