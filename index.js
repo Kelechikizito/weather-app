@@ -372,3 +372,7 @@ getCoordintes();
 
 
 
+// FORM LOCATION AND WEATHER STATS
+
+
+
