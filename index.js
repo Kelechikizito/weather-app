@@ -281,8 +281,7 @@ function getCoordintes() {
                 99: 'Thunderstorm with heavy hail'
             };
 
-            const weeklyWeatherStatsHumidity = $('.weekly-weather-card-stats p:nth-child(3)')
-            console.log(data.daily.precipitation_probability_max)
+            const weeklyWeatherStatsHumidity = $('.weekly-weather-card-stats p:nth-child(3)');
           
             for (let index = 0; index < 7; index++) {
                 const weeklyWeatherDesc = $('.weekly-weather-card-details > p:nth-child(2)').eq(index);
@@ -303,6 +302,31 @@ function getCoordintes() {
         .catch(error => {
             console.error(error);
         })
+
+        
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=relative_humidity_2m&timezone=auto`)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            let averageHumidityArray = []
+            for (let index = 0; index < 168; index += 24) {
+                let newArray = data.hourly.relative_humidity_2m.slice(index, 24 + index)
+                const sum = newArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+                let averageHumidity = Math.floor(sum / newArray.length);
+                averageHumidityArray.push(averageHumidity)
+            }
+
+            for (let index = 0; index < 7; index++) {
+                const weeklyWeatherStatsHumidity = $('.weekly-weather-card-stats p:nth-child(3) span').eq(index);              
+                weeklyWeatherStatsHumidity.text(averageHumidityArray[index] + '%')
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        })
+
+        
 
         
 
@@ -348,34 +372,3 @@ getCoordintes();
 
 
 
-
-const weatherDescriptions = {
-    0: 'Clear sky',
-    1: 'Mainly clear',
-    2: 'Partly cloudy',
-    3: 'Overcast',
-    45: 'Fog',
-    48: 'Depositing rime fog',
-    51: 'Drizzle: Light intensity',
-    53: 'Drizzle: Moderate intensity',
-    55: 'Drizzle: Dense intensity',
-    56: 'Freezing Drizzle: Light intensity',
-    57: 'Freezing Drizzle: Dense intensity',
-    61: 'Rain: Slight intensity',
-    63: 'Rain: Moderate intensity',
-    65: 'Rain: Heavy intensity',
-    66: 'Freezing Rain: Light intensity',
-    67: 'Freezing Rain: Heavy intensity',
-    71: 'Snow fall: Slight intensity',
-    73: 'Snow fall: Moderate intensity',
-    75: 'Snow fall: Heavy intensity',
-    77: 'Snow grains',
-    80: 'Rain showers: Slight intensity',
-    81: 'Rain showers: Moderate intensity',
-    82: 'Rain showers: Violent',
-    85: 'Snow showers: Slight',
-    86: 'Snow showers: Heavy',
-    95: 'Thunderstorm: Slight or moderate',
-    96: 'Thunderstorm with slight hail',
-    99: 'Thunderstorm with heavy hail'
-};

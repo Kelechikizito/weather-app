@@ -250,6 +250,11 @@ button:active {
     color: var(--light-blue-color);
 }
 
+.third-container-item:nth-child(1) h3:active {
+    cursor: pointer;
+    transform: scale(0.9);
+}
+
 
 /* RESPONSIVE DESIGN */
 @media (max-width:1050px) {
