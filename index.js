@@ -227,6 +227,51 @@ function getCoordintes() {
             console.error(error);
         })
 
+
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=weather_code,temperature_2m_max,apparent_temperature_max,precipitation_probability_max,wind_speed_10m_max&timezone=auto`)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+                
+            const weatherDescriptions = {
+                0: 'Clear sky',
+                1: 'Mainly clear',
+                2: 'Partly cloudy',
+                3: 'Overcast',
+                45: 'Fog',
+                48: 'Depositing rime fog',
+                51: 'Drizzle: Light intensity',
+                53: 'Drizzle: Moderate intensity',
+                55: 'Drizzle: Dense intensity',
+                56: 'Freezing Drizzle: Light intensity',
+                57: 'Freezing Drizzle: Dense intensity',
+                61: 'Rain: Slight intensity',
+                63: 'Rain: Moderate intensity',
+                65: 'Rain: Heavy intensity',
+                66: 'Freezing Rain: Light intensity',
+                67: 'Freezing Rain: Heavy intensity',
+                71: 'Snow fall: Slight intensity',
+                73: 'Snow fall: Moderate intensity',
+                75: 'Snow fall: Heavy intensity',
+                77: 'Snow grains',
+                80: 'Rain showers: Slight intensity',
+                81: 'Rain showers: Moderate intensity',
+                82: 'Rain showers: Violent',
+                85: 'Snow showers: Slight',
+                86: 'Snow showers: Heavy',
+                95: 'Thunderstorm: Slight or moderate',
+                96: 'Thunderstorm with slight hail',
+                99: 'Thunderstorm with heavy hail'
+            };
+            console.log(data.daily.weather_code.map(code => weatherDescriptions[code]));
+            // const weeklyWeatherCards = $('.weekly-weather-card-details > p:nth-child(2)');
+            // console.log(typeof weeklyWeatherCards);
+        })
+        .catch(error => {
+            console.error(error);
+        })
+
         
 
 		
@@ -272,4 +317,33 @@ getCoordintes();
 
 
 
-const state = {tab1:false, tab2:false, tab3:false, tab4:false};
+const weatherDescriptions = {
+    0: 'Clear sky',
+    1: 'Mainly clear',
+    2: 'Partly cloudy',
+    3: 'Overcast',
+    45: 'Fog',
+    48: 'Depositing rime fog',
+    51: 'Drizzle: Light intensity',
+    53: 'Drizzle: Moderate intensity',
+    55: 'Drizzle: Dense intensity',
+    56: 'Freezing Drizzle: Light intensity',
+    57: 'Freezing Drizzle: Dense intensity',
+    61: 'Rain: Slight intensity',
+    63: 'Rain: Moderate intensity',
+    65: 'Rain: Heavy intensity',
+    66: 'Freezing Rain: Light intensity',
+    67: 'Freezing Rain: Heavy intensity',
+    71: 'Snow fall: Slight intensity',
+    73: 'Snow fall: Moderate intensity',
+    75: 'Snow fall: Heavy intensity',
+    77: 'Snow grains',
+    80: 'Rain showers: Slight intensity',
+    81: 'Rain showers: Moderate intensity',
+    82: 'Rain showers: Violent',
+    85: 'Snow showers: Slight',
+    86: 'Snow showers: Heavy',
+    95: 'Thunderstorm: Slight or moderate',
+    96: 'Thunderstorm with slight hail',
+    99: 'Thunderstorm with heavy hail'
+};
