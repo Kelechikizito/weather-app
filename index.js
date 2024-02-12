@@ -146,21 +146,37 @@ function getCoordintes() {
             weatherStatusToday = $('.today-weather-status h2');
             todayWeatherIcon = $('.today-weather-icon img');
             todayWindChance = $('#todayWindChance');
-            todayHumidityChance = $('#todayHumidityChance');
+           
 
 
             todayTemp.text(data.main.temp + ' °C');
             feels.text(data.main.feels_like + ' °C');
             weatherStatusToday.text(capitalizeFirstLetter(data.weather[0].description));
-            todayWeatherIcon.attr('src', imageUrl);
-            todayWindChance.text(data.wind.speed);
-            todayHumidityChance.text(data.main.humidity);
-
-            // console.log(data);
+            todayWeatherIcon.attr('src', imageUrl);            
         })
         .catch(error => {
             console.error('Error fetching weather', error);
         });
+
+
+
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m&timezone=auto`)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            todayHumidityChance = $('#todayHumidityChance');
+            todayHumidityChance.text(data.current.relative_humidity_2m);
+
+            todayWindChance = $('#todayWindChance');
+            todayWindChance.text(data.current.wind_speed_10m);
+
+            todayPrecChance = $('#todayPrecipitationChance');
+            todayPrecChance.text(data.current.precipitation)
+        })
+        .catch(error => {
+            console.error(error);
+        })
 
 
 
@@ -264,9 +280,25 @@ function getCoordintes() {
                 96: 'Thunderstorm with slight hail',
                 99: 'Thunderstorm with heavy hail'
             };
-            console.log(data.daily.weather_code.map(code => weatherDescriptions[code]));
-            // const weeklyWeatherCards = $('.weekly-weather-card-details > p:nth-child(2)');
-            // console.log(typeof weeklyWeatherCards);
+
+            const weeklyWeatherStatsHumidity = $('.weekly-weather-card-stats p:nth-child(3)')
+            console.log(data.daily.precipitation_probability_max)
+          
+            for (let index = 0; index < 7; index++) {
+                const weeklyWeatherDesc = $('.weekly-weather-card-details > p:nth-child(2)').eq(index);
+                const weeklyWeatherTemp = $('.weekly-weather-card-temp span:nth-child(1)').eq(index);
+                const weeklyWeatherApparentTemp = $('.weekly-weather-card-temp span:nth-child(2)').eq(index); 
+                const weeklyWeatherStatsWind = $('.weekly-weather-card-stats p:nth-child(1) span').eq(index);
+                const weeklyWeatherStatsPrec = $('.weekly-weather-card-stats p:nth-child(2) span').eq(index);
+
+
+
+                weeklyWeatherDesc.text(data.daily.weather_code.map(code => weatherDescriptions[code])[index]);
+                weeklyWeatherTemp.text(Math.round(data.daily.temperature_2m_max[index]) + '°');
+                weeklyWeatherApparentTemp.text(Math.round(data.daily.apparent_temperature_max[index]) + '°'); 
+                weeklyWeatherStatsWind.text(data.daily.wind_speed_10m_max[index] + ' km/h');
+                weeklyWeatherStatsPrec.text(data.daily.precipitation_probability_max[index] + '%')         
+            }
         })
         .catch(error => {
             console.error(error);

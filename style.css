@@ -210,13 +210,20 @@ button {
 
 .weekly-weather-card-stats > p {
     margin: 0;
+    font-size: smaller;
 }
 
 footer {
     text-align: center;
 }
 
-.weekly-weather-card-temp span {
+.weekly-weather-card-temp {
+    display: flex;
+    gap: 3%;
+    font-size: smaller;
+}
+
+.weekly-weather-card-temp span:nth-child(2) {
     opacity: 0.5;
 }
 
