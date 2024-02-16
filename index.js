@@ -374,7 +374,41 @@ getCoordintes();
 
 // FORM LOCATION AND WEATHER STATS
 
-const formButton = ('button')
+const formButton = $('button');
+const inputField = $('input');
 
+function searchLocation(userInput) {
+    fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${userInput}&count=10&language=en&format=json`)
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        for (let index = 0; index < data.results.length; index++) {     
+            eachArray =  data.results[index];     
+            console.log(eachArray.name, eachArray.country, eachArray.latitude, eachArray.longitude);
+        }
+    })
+    .catch(err => {
+        console.log('Error fetching api', err);
+    })
+}
 
+inputField.keyup(function (e) { 
+    console.log(e.target.value)
+    searchLocation(e.target.value);
+    e.preventDefault();
+    
+});
+
+// inputField.change(function (e) { 
+//     console.log(e.target.value)
+//     searchLocation(e.target.value);
+//     e.preventDefault();
+// });
+
+formButton.click(function (e) { 
+    e.preventDefault();
+    
+});
 

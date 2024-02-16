@@ -79,11 +79,18 @@ input {
     background-color: hsla(229, 27%, 20%, 0.507);
     box-shadow: 0px 2px 4px hsla(229, 27%, 20%, 0.507);
     color: white;
+    font-family: 'Hanken Grotesk', sans-serif;
 }
 
 input::placeholder {
     color: white;
     opacity: 0.5;
+    font-family: 'Hanken Grotesk', sans-serif;
+}
+
+input:focus {
+    outline: var(--light-blue-color);
+    border: 0.1rem solid var(--light-blue-color);
 }
 
 button {
@@ -208,6 +215,11 @@ button {
     gap: 0.5rem;
 }
 
+.weekly-weather-card-details > p:nth-child(2) {
+    word-wrap: break-word;
+    width: 13ch;
+}
+
 .weekly-weather-card-stats > p {
     margin: 0;
     font-size: smaller;
@@ -276,6 +288,10 @@ button:active {
     .weekly-weather-cards {
         display: flex;
         gap: 1rem;
+    }
+
+    .weekly-weather-card-details > p:nth-child(2) {
+        white-space: break-spaces;
     }
 }
 
