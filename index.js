@@ -377,64 +377,207 @@ getCoordintes();
 const formButton = $('button');
 const inputField = $('input');
 const suggBox = $('.autocom-box');
-const suggBoxItems = $('.autocom-box li');
-const suggestions = [];
+let lastFiveHidden = true;
+let selectedLocation = ''; // Variable to store the selected location
+let selectedLatitude = ''; // Variable to store the latitude of the selected location
+let selectedLongitude = ''; // Variable to store the longitude of the selected location
 
 function searchLocation(userInput) {
     fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${userInput}&count=10&language=en&format=json`)
-    .then(response => {
-        return response.json();
-    })
-    .then(data => {
-        let dataLength = data.results.length;
-        for (let index = 0; dataLength > 5 ? index < 5 : index < dataLength; index++) {     
-            eachArray =  data.results[index]; 
-            suggestions.push(eachArray.name + ', ' + eachArray.country)
-            // eachArray.latitude, eachArray.longitude
-            // suggBox.eq(index).text(`${eachArray.name}, ${eachArray.country}`)  
-        }
-        // console.log(suggestions)
-    })
-    .catch(err => {
-        console.log('Error fetching api', err);
-    })
+        .then(response => response.json())
+        .then(data => {
+            const suggestions = data.results.map(result => `${result.name}, ${result.country}`);
+            showSuggestions(suggestions.slice(0, 5)); // Only pass the first 5 suggestions
+            // Store the latitude and longitude of the final location
+            selectedLatitude = data.results[0].latitude;
+            selectedLongitude = data.results[0].longitude;
+        })
+        .catch(err => {
+            console.error('Error fetching API', err);
+        });
 }
 
-inputField.keyup(function (e) { 
-    let userData = e.target.value;
-    let emptyArray = [];
+function showSuggestions(suggestions) {
+    const suggestionList = suggestions.map((suggestion, index) => `<li data-index="${index}">${suggestion}</li>`).join('');
+    suggBox.html(suggestionList);
+    lastFiveHidden = true; // Reset the flag when new suggestions are shown
+}
+
+inputField.keyup(function (e) {
+    let userData = e.target.value.trim();
     if (userData) {
-        emptyArray = suggestions.filter((data)=> {
-            return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
-        });
-        emptyArray = emptyArray.map((data) => {
-
-            return data = '<li>' + data + '</li>';
-        })
-        console.log(emptyArray)
-    }else {
-
+        searchLocation(userData);
+    } else {
+        suggBox.empty();
     }
-    showSuggestions(emptyArray)
-
-    searchLocation(userData);
-    e.preventDefault();
-    
 });
 
-function showSuggestions(list) {
-    let listData;
-    if (!list.length) {
-        
-    }else{
-        listData = list.join('');
-        suggBox.css('display', 'inline-block');
-    }
-    suggBox.html(listData);
-}
+// Clear suggestions when input field is focused
+inputField.focus(function () {
+    suggBox.empty();
+});
+
+// Handle click on suggested city
+suggBox.on('click', 'li', function() {
+    selectedLocation = $(this).text();
+    inputField.val(selectedLocation);
+    suggBox.empty();
+});
 
 formButton.click(function (e) { 
+    console.log('Selected latitude:', selectedLatitude);
+    console.log('Selected longitude:', selectedLongitude);
+    getCoordinates(selectedLatitude, selectedLongitude);
     e.preventDefault();
-    
+    if (lastFiveHidden) {
+        // Show the last 5 hidden cities
+        suggBox.find('li:nth-last-child(-n+5)').show();
+        lastFiveHidden = false;
+    } else {
+        // Hide the last 5 cities
+        suggBox.find('li:nth-last-child(-n+5)').hide();
+        lastFiveHidden = true;
+    }
 });
 
+function getCoordinates(lat, lng) {
+    
+    const apiKey = 'f2de816e338f0089fd3a344183af0a5b';
+    // Fetch current weather data
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${apiKey}`)
+        .then(response => response.json())
+        .then(data => {
+            // Manipulate DOM with current weather data
+            const weatherIcon = data.weather[0].icon;
+            const imageUrl = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+            $('#todayTemp').text(data.main.temp + ' °C');
+            $('#feels').text(data.main.feels_like + ' °C');
+            $('.today-weather-status h2').text(capitalizeFirstLetter(data.weather[0].description));
+            $('.today-weather-icon img').attr('src', imageUrl);
+        })
+        .catch(error => {
+            console.error('Error fetching current weather', error);
+        });
+
+    // Fetch current forecast data
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m&timezone=auto`)
+        .then(response => response.json())
+        .then(data => {
+            // Manipulate DOM with current forecast data
+            $('#todayHumidityChance').text(data.current.relative_humidity_2m);
+            $('#todayWindChance').text(data.current.wind_speed_10m);
+            $('#todayPrecipitationChance').text(data.current.precipitation);
+        })
+        .catch(error => {
+            console.error('Error fetching current forecast', error);
+        });
+
+    // Fetch hourly forecast data
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,wind_speed_10m&timezone=auto&forecast_days=1`)
+        .then(response => response.json())
+        .then(data => {
+            // Manipulate DOM with hourly forecast data
+            const tempArray = [];
+            const humidityArray = [];
+            const windSpeedArray = [];
+            const precipitationArray = [];
+            for (let index = 1; index < 24; index += 2) {
+                tempArray.push(data.hourly.temperature_2m[index]);
+                humidityArray.push(data.hourly.relative_humidity_2m[index]);
+                windSpeedArray.push(data.hourly.wind_speed_10m[index]);
+                precipitationArray.push(data.hourly.precipitation_probability[index]);
+            }
+            // Update DOM elements with forecast data
+            for (let index = 0; index < 12; index++) {
+                const weatherStatistics = $('.date-weather-status-details').eq(index);
+                weatherStatistics.text(`${tempArray[index]}°`);
+                // ...
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching hourly forecast', error);
+        });
+
+    
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=weather_code,temperature_2m_max,apparent_temperature_max,precipitation_probability_max,wind_speed_10m_max&timezone=auto`)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+                
+            const weatherDescriptions = {
+                0: 'Clear sky',
+                1: 'Mainly clear',
+                2: 'Partly cloudy',
+                3: 'Overcast',
+                45: 'Fog',
+                48: 'Depositing rime fog',
+                51: 'Drizzle: Light intensity',
+                53: 'Drizzle: Moderate intensity',
+                55: 'Drizzle: Dense intensity',
+                56: 'Freezing Drizzle: Light intensity',
+                57: 'Freezing Drizzle: Dense intensity',
+                61: 'Rain: Slight intensity',
+                63: 'Rain: Moderate intensity',
+                65: 'Rain: Heavy intensity',
+                66: 'Freezing Rain: Light intensity',
+                67: 'Freezing Rain: Heavy intensity',
+                71: 'Snow fall: Slight intensity',
+                73: 'Snow fall: Moderate intensity',
+                75: 'Snow fall: Heavy intensity',
+                77: 'Snow grains',
+                80: 'Rain showers: Slight intensity',
+                81: 'Rain showers: Moderate intensity',
+                82: 'Rain showers: Violent',
+                85: 'Snow showers: Slight',
+                86: 'Snow showers: Heavy',
+                95: 'Thunderstorm: Slight or moderate',
+                96: 'Thunderstorm with slight hail',
+                99: 'Thunderstorm with heavy hail'
+            };
+
+            const weeklyWeatherStatsHumidity = $('.weekly-weather-card-stats p:nth-child(3)');
+          
+            for (let index = 0; index < 7; index++) {
+                const weeklyWeatherDesc = $('.weekly-weather-card-details > p:nth-child(2)').eq(index);
+                const weeklyWeatherTemp = $('.weekly-weather-card-temp span:nth-child(1)').eq(index);
+                const weeklyWeatherApparentTemp = $('.weekly-weather-card-temp span:nth-child(2)').eq(index); 
+                const weeklyWeatherStatsWind = $('.weekly-weather-card-stats p:nth-child(1) span').eq(index);
+                const weeklyWeatherStatsPrec = $('.weekly-weather-card-stats p:nth-child(2) span').eq(index);
+
+
+
+                weeklyWeatherDesc.text(data.daily.weather_code.map(code => weatherDescriptions[code])[index]);
+                weeklyWeatherTemp.text(Math.round(data.daily.temperature_2m_max[index]) + '°');
+                weeklyWeatherApparentTemp.text(Math.round(data.daily.apparent_temperature_max[index]) + '°'); 
+                weeklyWeatherStatsWind.text(data.daily.wind_speed_10m_max[index] + ' km/h');
+                weeklyWeatherStatsPrec.text(data.daily.precipitation_probability_max[index] + '%')         
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        })
+
+        
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=relative_humidity_2m&timezone=auto`)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            let averageHumidityArray = []
+            for (let index = 0; index < 168; index += 24) {
+                let newArray = data.hourly.relative_humidity_2m.slice(index, 24 + index)
+                const sum = newArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+                let averageHumidity = Math.floor(sum / newArray.length);
+                averageHumidityArray.push(averageHumidity)
+            }
+
+            for (let index = 0; index < 7; index++) {
+                const weeklyWeatherStatsHumidity = $('.weekly-weather-card-stats p:nth-child(3) span').eq(index);              
+                weeklyWeatherStatsHumidity.text(averageHumidityArray[index] + '%')
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        })
+}
