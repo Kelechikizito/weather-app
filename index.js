@@ -376,6 +376,9 @@ getCoordintes();
 
 const formButton = $('button');
 const inputField = $('input');
+const suggBox = $('.autocom-box');
+const suggBoxItems = $('.autocom-box li');
+const suggestions = [];
 
 function searchLocation(userInput) {
     fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${userInput}&count=10&language=en&format=json`)
@@ -383,11 +386,14 @@ function searchLocation(userInput) {
         return response.json();
     })
     .then(data => {
-        console.log(data);
-        for (let index = 0; index < data.results.length; index++) {     
-            eachArray =  data.results[index];     
-            console.log(eachArray.name, eachArray.country, eachArray.latitude, eachArray.longitude);
+        let dataLength = data.results.length;
+        for (let index = 0; dataLength > 5 ? index < 5 : index < dataLength; index++) {     
+            eachArray =  data.results[index]; 
+            suggestions.push(eachArray.name + ', ' + eachArray.country)
+            // eachArray.latitude, eachArray.longitude
+            // suggBox.eq(index).text(`${eachArray.name}, ${eachArray.country}`)  
         }
+        // console.log(suggestions)
     })
     .catch(err => {
         console.log('Error fetching api', err);
@@ -395,17 +401,37 @@ function searchLocation(userInput) {
 }
 
 inputField.keyup(function (e) { 
-    console.log(e.target.value)
-    searchLocation(e.target.value);
+    let userData = e.target.value;
+    let emptyArray = [];
+    if (userData) {
+        emptyArray = suggestions.filter((data)=> {
+            return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+        });
+        emptyArray = emptyArray.map((data) => {
+
+            return data = '<li>' + data + '</li>';
+        })
+        console.log(emptyArray)
+    }else {
+
+    }
+    showSuggestions(emptyArray)
+
+    searchLocation(userData);
     e.preventDefault();
     
 });
 
-// inputField.change(function (e) { 
-//     console.log(e.target.value)
-//     searchLocation(e.target.value);
-//     e.preventDefault();
-// });
+function showSuggestions(list) {
+    let listData;
+    if (!list.length) {
+        
+    }else{
+        listData = list.join('');
+        suggBox.css('display', 'inline-block');
+    }
+    suggBox.html(listData);
+}
 
 formButton.click(function (e) { 
     e.preventDefault();

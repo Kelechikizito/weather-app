@@ -74,7 +74,7 @@ form {
 input {
     border-radius: 0.5rem 0 0 0.5rem;
     border: none;
-    width: 60%;
+    width: 100%;
     padding: 1.3rem 3rem;
     background-color: hsla(229, 27%, 20%, 0.507);
     box-shadow: 0px 2px 4px hsla(229, 27%, 20%, 0.507);
@@ -88,10 +88,28 @@ input::placeholder {
     font-family: 'Hanken Grotesk', sans-serif;
 }
 
+input:valid {
+    background-color: transparent !important;
+}
+
 input:focus {
     outline: var(--light-blue-color);
     border: 0.1rem solid var(--light-blue-color);
+    background: transparent;
 }
+
+.autocom-box {
+    width: 92%;
+    overflow-y: auto;
+    display: none;
+}
+
+.autocom-box li {
+    list-style: none;
+    padding: .5rem 3rem;
+    cursor: pointer;
+}
+
 
 button {
     border-radius: 0 0.5rem 0.5rem 0;
@@ -252,6 +270,10 @@ button:active {
     cursor: pointer;
 }
 
+.autocom-box li:hover {
+    color: var(--light-blue-color);
+}
+
 .weekly-weather-cards > div:hover {
     cursor: pointer;
     transform: scale(1.1);
@@ -293,6 +315,10 @@ button:active {
     .weekly-weather-card-details > p:nth-child(2) {
         white-space: break-spaces;
     }
+  
+    .autocom-box {
+        width: 90%;
+    }
 }
 
 @media (max-width:820px) {
@@ -313,6 +339,11 @@ button:active {
 
     input {
         width: 100%;
+    }
+
+    
+    .autocom-box {
+        width: 92%;
     }
 
     .second-container {
@@ -357,6 +388,11 @@ button:active {
 
     input {
         width: 80%;
+    }
+
+    
+    .autocom-box {
+        width: 84%;
     }
 
     button {
