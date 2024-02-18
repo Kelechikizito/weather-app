@@ -441,7 +441,20 @@ formButton.click(function (e) {
 });
 
 function getCoordinates(lat, lng) {
-    
+    const spanElement = $('.dynamic-location span');
+    // Remove the existing span element
+    spanElement.remove();
+
+    // Select the existing h1 element
+    const h2Element = $('.dynamic-location h2');
+
+    // Create a new span element
+    const newSpanElement = $('<span></span>').text(`(${inputField.val()})`); // Add content to the span if needed
+
+    // Insert the new span element after the h1 element
+    h2Element.after(newSpanElement);
+
+
     const apiKey = 'f2de816e338f0089fd3a344183af0a5b';
     // Fetch current weather data
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${apiKey}`)

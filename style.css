@@ -11,6 +11,13 @@ body {
     color: white;
 }
 
+.dynamic-location {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .main {
     display: grid;
     grid-template-columns: 1fr;
@@ -299,6 +306,13 @@ button:active {
 
 /* RESPONSIVE DESIGN */
 @media (max-width:1050px) {
+
+    .dynamic-location {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+    }
 
     .fourth-container {
         overflow-x: auto; /* Enable horizontal scrolling */
