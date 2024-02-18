@@ -441,7 +441,7 @@ formButton.click(function (e) {
 });
 
 function getCoordinates(lat, lng) {
-    const spanElement = $('.dynamic-location span');
+    const spanElement = $('.dynamic-location span:nth-child(2)');
     // Remove the existing span element
     spanElement.remove();
 
