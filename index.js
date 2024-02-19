@@ -386,7 +386,7 @@ function searchLocation(userInput) {
     fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${userInput}&count=10&language=en&format=json`)
         .then(response => response.json())
         .then(data => {
-            const suggestions = data.results.map(result => `${result.name}, ${result.country}`);
+            const suggestions = data.results.map(result => `${result.name}, ${result.country || ''}`);
             showSuggestions(suggestions.slice(0, 5)); // Only pass the first 5 suggestions
             // Store the latitude and longitude of the final location
             selectedLatitude = data.results[0].latitude;
