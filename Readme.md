@@ -28,7 +28,7 @@ WeatherApp is a simple and intuitive weather application built to provide users 
 Feel free to customize the description to better reflect the unique features and functionalities of your weather app!
 
 
-![](./_index.html.png)
+![Screenshot](./_index.html.png)
 
 
 
