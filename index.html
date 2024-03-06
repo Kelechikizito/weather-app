@@ -1,283 +1,363 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tinos&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100;500&family=League+Spartan&family=Raleway&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tinos&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100;500&family=League+Spartan&family=Raleway&display=swap"
+      rel="stylesheet"
+    />
     <title>Kaykay's weather app</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="main">
-        <div class="first-container search-container">
-            <div class="search-item">
-                <div class="search-header"><h2>Weather.</h2></div>
-                <div class="search-location">
-                    <div><img src="./images/geo-alt-fill.svg" alt=""></div>
-                    <p class="search-current-location"></p>
-                </div>
-            </div>
-
-            <div class="search-bar">
-                <form action="">
-                    <input type="text" name="q" id="location" placeholder="Search area here..." required>
-                    <button><img src="./images/search.png" alt=""></button>
-                </form>
-                <div class="autocom-box">
-                </div>
-            </div>
+      <div class="first-container search-container">
+        <div class="search-item">
+          <div class="search-header"><h2>Weather.</h2></div>
+          <div class="search-location">
+            <div><img src="./images/geo-alt-fill.svg" alt="" /></div>
+            <p class="search-current-location"></p>
+          </div>
         </div>
 
-        <div class="second-container">
-            <div class="second-container-item">
-                <div class="dynamic-location"><h2><span>Today's</span> Weather Forecast</h2></div>
-                <p class="today-date">Lorem ipsum dolor sit amet.</p>
-                <div class="today-temp">
-                    <h1 id="todayTemp">30</h1>
-                    <!-- <h6>f</h6> -->
-                </div>
-                <p>Feels <span id="feels">Lorem.</span></p>
-            </div>
+        <div class="search-bar">
+          <form action="">
+            <input
+              type="text"
+              name="q"
+              id="location"
+              placeholder="Search area here..."
+              required
+            />
+            <button><img src="./images/search.png" alt="" /></button>
+          </form>
+          <div class="autocom-box"></div>
+        </div>
+      </div>
 
-            <div class="second-container-item">
-                <div class="today-weather-icon">
-                    <img src="" alt="">
-                </div>
-
-                <div class="today-weather-status">
-                    <h2>Lorem.</h2>
-                    <p><img src="./images/cloud-hail.svg" alt="">Precipitation: <span class="chance" id="todayPrecipitationChance"></span>%</p>
-                    <p><img src="./images/moisture.svg" alt="">Humidity: <span class="chance" id="todayHumidityChance"></span>%</p>
-                    <p><img src="./images/wind.svg" alt="">Wind: <span class="chance" id="todayWindChance"></span>km/h</p>
-                </div>
-            </div>
+      <div class="second-container">
+        <div class="second-container-item">
+          <div class="dynamic-location">
+            <h2><span>Today's</span> Weather Forecast</h2>
+          </div>
+          <p class="today-date">Lorem ipsum dolor sit amet.</p>
+          <div class="today-temp">
+            <h1 id="todayTemp">30</h1>
+            <!-- <h6>f</h6> -->
+          </div>
+          <p>Feels <span id="feels">Lorem.</span></p>
         </div>
 
-        <div class="third-container">
-            <div class="third-container-item">
-                <h3 id="tab1"><img src="./images/thermometer-half.svg" alt="">Temperature</h3>
-                <h3 id="tab2"><img src="./images/wind.svg" alt="">Wind</h3>
-                <h3 id="tab3"><img src="./images/cloud-hail.svg" alt="">Precipitaion</h3>
-                <h3 id="tab4"><img src="./images/moisture.svg" alt="">Humidity</h3>
-            </div>
+        <div class="second-container-item">
+          <div class="today-weather-icon">
+            <img src="" alt="" />
+          </div>
 
-            <div class="third-container-item date-weather-status">
-                <div class="one-am">
-                    <p>1 AM</p>
-                    <img src="" alt="">
-                    <p class="date-weather-status-details">23</p>
-                </div>
-
-                <div class="three-am">
-                    <p>3 AM</p>
-                    <img src="" alt="">
-                    <p class="date-weather-status-details">23</p>
-                </div>
-
-                <div class="five-am">
-                    <p>5 AM</p>
-                    <img src="" alt="">
-                    <p class="date-weather-status-details">23</p>
-                </div>
-
-                <div class="seven-am">
-                    <p>7 AM</p>
-                    <img src="" alt="">
-                    <p class="date-weather-status-details">23</p>
-                </div>
-
-                <div class="nine-am">
-                    <p>9 AM</p>
-                    <img src="" alt="">
-                    <p class="date-weather-status-details">23</p>
-                </div>
-
-                <div class="eleven-am">
-                    <p>11 AM</p>
-                    <img src="" alt="">
-                    <p class="date-weather-status-details">23</p>
-                </div>
-
-                <div class="one-pm">
-                    <p>1 PM</p>
-                    <img src="" alt="">
-                    <p class="date-weather-status-details">23</p>
-                </div>
-
-                <div class="three-pm">
-                    <p>3 PM</p>
-                    <img src="" alt="">
-                    <p class="date-weather-status-details">23</p>
-                </div>
-
-                <div class="five-pm">
-                    <p>5 PM</p>
-                    <img src="" alt="">
-                    <p class="date-weather-status-details">23</p>
-                </div>
-
-                <div class="seven-pm">
-                    <p>7 PM</p>
-                    <img src="" alt="">
-                    <p class="date-weather-status-details">23</p>
-                </div>
-
-                <div class="nine-pm">
-                    <p>9 PM</p>
-                    <img src="" alt="">
-                    <p class="date-weather-status-details">23</p>
-                </div>
-
-                <div class="eleven-pm">
-                    <p>11 PM</p>
-                    <img src="" alt="">
-                    <p class="date-weather-status-details">23</p>
-                </div>
-            </div>
+          <div class="today-weather-status">
+            <h2>Lorem.</h2>
+            <p>
+              <img src="./images/cloud-hail.svg" alt="" />Precipitation:
+              <span class="chance" id="todayPrecipitationChance"></span>%
+            </p>
+            <p>
+              <img src="./images/moisture.svg" alt="" />Humidity:
+              <span class="chance" id="todayHumidityChance"></span>%
+            </p>
+            <p>
+              <img src="./images/wind.svg" alt="" />Wind:
+              <span class="chance" id="todayWindChance"></span>km/h
+            </p>
+          </div>
         </div>
-        
-        <div class="middle-container">
-            <h2><span>Weekly</span> Forecast</h2>
+      </div>
+
+      <div class="third-container">
+        <div class="third-container-item">
+          <h3 id="tab1">
+            <img src="./images/thermometer-half.svg" alt="" />Temperature
+          </h3>
+          <h3 id="tab2"><img src="./images/wind.svg" alt="" />Wind</h3>
+          <h3 id="tab3">
+            <img src="./images/cloud-hail.svg" alt="" />Precipitaion
+          </h3>
+          <h3 id="tab4"><img src="./images/moisture.svg" alt="" />Humidity</h3>
         </div>
 
-        <div class="fourth-container weekly-forecast">
-            <div class="fourth-container-item weekly-weather-cards">
-                <div class="weekly-weather-card">
-                    <div class="weekly-weather-card-date">
-                        <p>Lorem1.</p>
-                        <p>Lorem2</p>
-                    </div>
-                    <img src="" alt="">
-                    <div class="weekly-weather-card-details">
-                        <p class="weekly-weather-card-temp"><span>32 </span><span>24</span></p>
-                        <p>Lorem.</p>
-                        <div class="weekly-weather-card-stats">
-                            <p>Wind: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Precipitation: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Humidity: <span class="weekly-weather-card-chance"></span></p>
-                        </div>
-                    </div>
-                </div>
+        <div class="third-container-item date-weather-status">
+          <div class="one-am">
+            <p>1 AM</p>
+            <img src="" alt="" />
+            <p class="date-weather-status-details">23</p>
+          </div>
 
-                <div class="weekly-weather-cardtwo">
-                    <div class="weekly-weather-card-date">
-                        <p>Lorem1.</p>
-                        <p>Lorem3</p>
-                    </div>
-                    <img src="" alt="">
-                    <div class="weekly-weather-card-details">
-                        <p class="weekly-weather-card-temp"><span>32 </span><span>24</span></p>
-                        <p>Lorem.</p>
-                        <div class="weekly-weather-card-stats">
-                            <p>Wind: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Precipitation: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Humidity: <span class="weekly-weather-card-chance"></span></p>
-                        </div>
-                    </div>
-                </div>
+          <div class="three-am">
+            <p>3 AM</p>
+            <img src="" alt="" />
+            <p class="date-weather-status-details">23</p>
+          </div>
 
-                <div class="weekly-weather-cardthree">
-                    <div class="weekly-weather-card-date">
-                        <p>Lorem.3</p>
-                        <p>Lorem.</p>
-                    </div>
-                    <img src="" alt="">
-                    <div class="weekly-weather-card-details">
-                        <p class="weekly-weather-card-temp"><span>32 </span> <span>24</span></p>
-                        <p>Lorem.</p>
-                        <div class="weekly-weather-card-stats">
-                            <p>Wind: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Precipitation: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Humidity: <span class="weekly-weather-card-chance"></span></p>
-                        </div>
-                    </div>
-                </div>
+          <div class="five-am">
+            <p>5 AM</p>
+            <img src="" alt="" />
+            <p class="date-weather-status-details">23</p>
+          </div>
 
-                <div class="weekly-weather-cardfour">
-                    <div class="weekly-weather-card-date">
-                        <p>Lorem.</p>
-                        <p>Lorem.</p>
-                    </div>
-                    <img src="" alt="">
-                    <div class="weekly-weather-card-details">
-                        <p class="weekly-weather-card-temp"><span>32 </span><span>24</span></p>
-                        <p>Lorem.</p>
-                        <div class="weekly-weather-card-stats">
-                            <p>Wind: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Precipitation: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Humidity: <span class="weekly-weather-card-chance"></span></p>
-                        </div>
-                    </div>
-                </div>
+          <div class="seven-am">
+            <p>7 AM</p>
+            <img src="" alt="" />
+            <p class="date-weather-status-details">23</p>
+          </div>
 
-                <div class="weekly-weather-cardfive">
-                    <div class="weekly-weather-card-date">
-                        <p>Lorem.</p>
-                        <p>Lorem.</p>
-                    </div>
-                    <img src="" alt="">
-                    <div class="weekly-weather-card-details">
-                        <p class="weekly-weather-card-temp"><span>32 </span> <span>24</span></p>
-                        <p>Lorem.</p>
-                        <div class="weekly-weather-card-stats">
-                            <p>Wind: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Precipitation: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Humidity: <span class="weekly-weather-card-chance"></span></p>
-                        </div>
-                    </div>
-                </div>
+          <div class="nine-am">
+            <p>9 AM</p>
+            <img src="" alt="" />
+            <p class="date-weather-status-details">23</p>
+          </div>
 
-                <div class="weekly-weather-cardsix">
-                    <div class="weekly-weather-card-date">
-                        <p>Lorem.</p>
-                        <p>Lorem.</p>
-                    </div>
-                    <img src="" alt="">
-                    <div class="weekly-weather-card-details">
-                        <p class="weekly-weather-card-temp"><span>32 </span><span>24</span></p>
-                        <p>Lorem.</p>
-                        <div class="weekly-weather-card-stats">
-                            <p>Wind: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Precipitation: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Humidity: <span class="weekly-weather-card-chance"></span></p>
-                        </div>
-                    </div>
-                </div>
+          <div class="eleven-am">
+            <p>11 AM</p>
+            <img src="" alt="" />
+            <p class="date-weather-status-details">23</p>
+          </div>
 
-                <div class="weekly-weather-cardseven">
-                    <div class="weekly-weather-card-date">
-                        <p>Lorem.</p>
-                        <p>Lorem.</p>
-                    </div>
-                    <img src="" alt="">
-                    <div class="weekly-weather-card-details">
-                        <p class="weekly-weather-card-temp"><span>32 </span> <span>24</span></p>
-                        <p>Lorem.</p>
-                        <div class="weekly-weather-card-stats">
-                            <p>Wind: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Precipitation: <span class="weekly-weather-card-chance"></span></p>
-                            <p>Humidity: <span class="weekly-weather-card-chance"></span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <div class="one-pm">
+            <p>1 PM</p>
+            <img src="" alt="" />
+            <p class="date-weather-status-details">23</p>
+          </div>
+
+          <div class="three-pm">
+            <p>3 PM</p>
+            <img src="" alt="" />
+            <p class="date-weather-status-details">23</p>
+          </div>
+
+          <div class="five-pm">
+            <p>5 PM</p>
+            <img src="" alt="" />
+            <p class="date-weather-status-details">23</p>
+          </div>
+
+          <div class="seven-pm">
+            <p>7 PM</p>
+            <img src="" alt="" />
+            <p class="date-weather-status-details">23</p>
+          </div>
+
+          <div class="nine-pm">
+            <p>9 PM</p>
+            <img src="" alt="" />
+            <p class="date-weather-status-details">23</p>
+          </div>
+
+          <div class="eleven-pm">
+            <p>11 PM</p>
+            <img src="" alt="" />
+            <p class="date-weather-status-details">23</p>
+          </div>
         </div>
+      </div>
 
+      <div class="middle-container">
+        <h2><span>Weekly</span> Forecast</h2>
+      </div>
+
+      <div class="fourth-container weekly-forecast">
+        <div class="fourth-container-item weekly-weather-cards">
+          <div class="weekly-weather-card">
+            <div class="weekly-weather-card-date">
+              <p>Lorem1.</p>
+              <p>Lorem2</p>
+            </div>
+            <img src="" alt="" />
+            <div class="weekly-weather-card-details">
+              <p class="weekly-weather-card-temp">
+                <span>32 </span><span>24</span>
+              </p>
+              <p>Lorem.</p>
+              <div class="weekly-weather-card-stats">
+                <p>Wind: <span class="weekly-weather-card-chance"></span></p>
+                <p>
+                  Precipitation:
+                  <span class="weekly-weather-card-chance"></span>
+                </p>
+                <p>
+                  Humidity: <span class="weekly-weather-card-chance"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="weekly-weather-cardtwo">
+            <div class="weekly-weather-card-date">
+              <p>Lorem1.</p>
+              <p>Lorem3</p>
+            </div>
+            <img src="" alt="" />
+            <div class="weekly-weather-card-details">
+              <p class="weekly-weather-card-temp">
+                <span>32 </span><span>24</span>
+              </p>
+              <p>Lorem.</p>
+              <div class="weekly-weather-card-stats">
+                <p>Wind: <span class="weekly-weather-card-chance"></span></p>
+                <p>
+                  Precipitation:
+                  <span class="weekly-weather-card-chance"></span>
+                </p>
+                <p>
+                  Humidity: <span class="weekly-weather-card-chance"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="weekly-weather-cardthree">
+            <div class="weekly-weather-card-date">
+              <p>Lorem.3</p>
+              <p>Lorem.</p>
+            </div>
+            <img src="" alt="" />
+            <div class="weekly-weather-card-details">
+              <p class="weekly-weather-card-temp">
+                <span>32 </span> <span>24</span>
+              </p>
+              <p>Lorem.</p>
+              <div class="weekly-weather-card-stats">
+                <p>Wind: <span class="weekly-weather-card-chance"></span></p>
+                <p>
+                  Precipitation:
+                  <span class="weekly-weather-card-chance"></span>
+                </p>
+                <p>
+                  Humidity: <span class="weekly-weather-card-chance"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="weekly-weather-cardfour">
+            <div class="weekly-weather-card-date">
+              <p>Lorem.</p>
+              <p>Lorem.</p>
+            </div>
+            <img src="" alt="" />
+            <div class="weekly-weather-card-details">
+              <p class="weekly-weather-card-temp">
+                <span>32 </span><span>24</span>
+              </p>
+              <p>Lorem.</p>
+              <div class="weekly-weather-card-stats">
+                <p>Wind: <span class="weekly-weather-card-chance"></span></p>
+                <p>
+                  Precipitation:
+                  <span class="weekly-weather-card-chance"></span>
+                </p>
+                <p>
+                  Humidity: <span class="weekly-weather-card-chance"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="weekly-weather-cardfive">
+            <div class="weekly-weather-card-date">
+              <p>Lorem.</p>
+              <p>Lorem.</p>
+            </div>
+            <img src="" alt="" />
+            <div class="weekly-weather-card-details">
+              <p class="weekly-weather-card-temp">
+                <span>32 </span> <span>24</span>
+              </p>
+              <p>Lorem.</p>
+              <div class="weekly-weather-card-stats">
+                <p>Wind: <span class="weekly-weather-card-chance"></span></p>
+                <p>
+                  Precipitation:
+                  <span class="weekly-weather-card-chance"></span>
+                </p>
+                <p>
+                  Humidity: <span class="weekly-weather-card-chance"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="weekly-weather-cardsix">
+            <div class="weekly-weather-card-date">
+              <p>Lorem.</p>
+              <p>Lorem.</p>
+            </div>
+            <img src="" alt="" />
+            <div class="weekly-weather-card-details">
+              <p class="weekly-weather-card-temp">
+                <span>32 </span><span>24</span>
+              </p>
+              <p>Lorem.</p>
+              <div class="weekly-weather-card-stats">
+                <p>Wind: <span class="weekly-weather-card-chance"></span></p>
+                <p>
+                  Precipitation:
+                  <span class="weekly-weather-card-chance"></span>
+                </p>
+                <p>
+                  Humidity: <span class="weekly-weather-card-chance"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="weekly-weather-cardseven">
+            <div class="weekly-weather-card-date">
+              <p>Lorem.</p>
+              <p>Lorem.</p>
+            </div>
+            <img src="" alt="" />
+            <div class="weekly-weather-card-details">
+              <p class="weekly-weather-card-temp">
+                <span>32 </span> <span>24</span>
+              </p>
+              <p>Lorem.</p>
+              <div class="weekly-weather-card-stats">
+                <p>Wind: <span class="weekly-weather-card-chance"></span></p>
+                <p>
+                  Precipitation:
+                  <span class="weekly-weather-card-chance"></span>
+                </p>
+                <p>
+                  Humidity: <span class="weekly-weather-card-chance"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
+
     <footer>
-        <div>
-            <p>Completed by <a href="https://github.com/kelechikizito" style="color: rgb(158, 218, 255);">Kelechi Kizito Ugwu</a></p>
-        </div>
+      <div>
+        <p>
+          Completed by
+          <a
+            href="https://github.com/kelechikizito"
+            style="color: rgb(158, 218, 255)"
+            >Kelechi Kizito Ugwu</a
+          >
+        </p>
+      </div>
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="./index.js"></script>
-</body>
+  </body>
 </html>
